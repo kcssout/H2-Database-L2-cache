@@ -40,18 +40,20 @@
 						value="org.hibernate.cache.spi.UpdateTimestampsCache" />
 				</bean>
 
+				<bean parent="atomic-cache">
+					<property name="name" value="user-find" />
+				</bean>
+				<bean parent="atomic-cache">
+					<property name="name" value="find-Phone-User" />
+				</bean>
+
 				<!-- Configuration for query result cache. -->
 				<bean parent="atomic-cache">
 					<property name="name"
 						value="org.hibernate.cache.internal.StandardQueryCache" />
 				</bean>
 
-				<bean parent="atomic-cache">
-					<property name="name" value="findUser" />
-				</bean>
-				<bean parent="atomic-cache">
-					<property name="name" value="findPhoneUser" />
-				</bean>
+
 			</list>
 		</property>
 		<property name="discoverySpi">

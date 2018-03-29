@@ -1,6 +1,4 @@
 package kr.co.uclick.entity;
-
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,8 +14,7 @@ import org.springframework.cache.annotation.Cacheable;
 @Entity
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Phone {
-	
+public class Phone {	
 	@Id
 	@Column(name="seq")
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -29,53 +26,36 @@ public class Phone {
 	@ManyToOne(optional=false)
 	@JoinColumn(name="member_id")
 	private User user;
-
-
-	public Phone() {}
 	
+	public Phone() {}	
 	public Phone(User user,String ph_number){
 		this.ph_number = ph_number;
 		this.user = user;
-	}
-	
+	}	
 	public Phone(String ph_number){
 		this.ph_number = ph_number;
-	}
-	
-	
+	}		
 	public Long getSeq() {
 		return seq;
 	}
-
 	public void setSeq(Long seq) {
 		this.seq = seq;
 	}
-
 	public User getUser() {
 		return user;
 	}
-
 	public void setUser(User user) {
 		this.user = user;
-		
 	}
 	public String getPh_number() {
 		return ph_number;
 	}
-
 	public void setPh_number(String ph_number) {
 		this.ph_number = ph_number;
-	}
-	
-
-	
+	}	
 	@Override
 	public String toString() {
 		String result = "[phone_"+seq+"] 전화번호: " + ph_number;
 		return result;
 	}
-
-
-	
-
 }

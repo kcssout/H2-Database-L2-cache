@@ -31,9 +31,6 @@ public class UserService {
 		userRepository.save(user);
 	}
 	
-	@QueryHints(value = { @QueryHint(name = "org.hibernate.cacheable", value ="true"),
-						  @QueryHint(name = "org.hibernate.cacheMode", value ="CacheMode.NORMAL"),
-						  @QueryHint(name = "org.hibernate.cacheRegion", value ="findUser")})
 	public List<User> findUser(String name){
 		return userRepository.findUser(name);
 	}

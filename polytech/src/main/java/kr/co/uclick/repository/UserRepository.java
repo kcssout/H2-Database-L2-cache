@@ -3,9 +3,12 @@ package kr.co.uclick.repository;
 import java.util.List;
 import java.util.stream.Stream;
 
+import javax.persistence.QueryHint;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,10 +21,12 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	
 	public List<User> findAll();
 	
-	
 	@Transactional
 	@Modifying
 	@Query("select u from User u where u.name like %?1%")
+	@QueryHints(value = {@QueryHint(name = "org.hibernate.cacheable", value ="true"),
+			 @QueryHint(name = "org.hibernate.cacheMode", value ="NORMAL"),
+			 @QueryHint(name = "org.hibernate.cacheRegion", value ="user-find")})
 	public List<User> findUser(String name);
 		
 	@Transactional
@@ -33,9 +38,6 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	@Modifying
 	@Query("delete from User u where u.no = :no")
 	public void deleteById(@Param("no") Long no);
-	
-	//public Stream<User> findAllAsStream();//대용량의 데이터를 담을 때 받으면서 이런 작업들을 할 수 있게 해주는
-
 }
 
 
