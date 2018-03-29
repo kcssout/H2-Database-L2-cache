@@ -74,6 +74,7 @@ public class SpringConfiguration {
 
 	public Properties additionalProperties() {
 		Properties properties = new Properties();
+		
 		properties.setProperty(AvailableSettings.HBM2DDL_AUTO, "create-drop");
 		properties.setProperty(AvailableSettings.FORMAT_SQL, Boolean.TRUE.toString());
 		properties.setProperty(AvailableSettings.SHOW_SQL, Boolean.TRUE.toString());

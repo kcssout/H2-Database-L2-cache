@@ -1,6 +1,11 @@
 package kr.co.uclick.service;
 
+import java.util.List;
+
+import javax.persistence.QueryHint;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,14 +19,32 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
-	public void save(User user) {
-		userRepository.save(user);
-		//userRepository.findAll(QUser.user.name.eq(user.getName()));
+	public List<User> findAll() {
+		return userRepository.findAll();
 	}
 	
-	@Transactional(readOnly = true)
 	public User findByName(String name) {
 		return userRepository.findByName(name);
 	}
+	
+	public void save(User user) {
+		userRepository.save(user);
+	}
+	
+	@QueryHints(value = { @QueryHint(name = "org.hibernate.cacheable", value ="true"),
+						  @QueryHint(name = "org.hibernate.cacheMode", value ="CacheMode.NORMAL"),
+						  @QueryHint(name = "org.hibernate.cacheRegion", value ="findUser")})
+	public List<User> findUser(String name){
+		return userRepository.findUser(name);
+	}
+	
+	public void updateName(String newName, Long no) {
+		userRepository.updateName(newName, no);		
+	}
+	
+	public void deleteById(Long no) {
+		userRepository.deleteById(no);
+	}
+	
 	
 }

@@ -25,7 +25,15 @@
 		</property>
 		<property name="cacheConfiguration">
 			<list>
-
+				<bean parent="transactional-cache">
+					<property name="name" value="kr.co.uclick.entity.User" />
+				</bean>
+				<bean parent="transactional-cache">
+					<property name="name" value="kr.co.uclick.entity.User.phone" />
+				</bean>
+				<bean parent="transactional-cache">
+					<property name="name" value="kr.co.uclick.entity.Phone" />
+				</bean>
 				<!-- Configuration for update timestamps cache. -->
 				<bean parent="atomic-cache">
 					<property name="name"
@@ -36,6 +44,13 @@
 				<bean parent="atomic-cache">
 					<property name="name"
 						value="org.hibernate.cache.internal.StandardQueryCache" />
+				</bean>
+
+				<bean parent="atomic-cache">
+					<property name="name" value="findUser" />
+				</bean>
+				<bean parent="atomic-cache">
+					<property name="name" value="findPhoneUser" />
 				</bean>
 			</list>
 		</property>
@@ -53,6 +68,7 @@
 			</bean>
 		</property>
 	</bean>
+
 
 	<!-- Basic configuration for atomic cache. -->
 	<bean id="atomic-cache" class="org.apache.ignite.configuration.CacheConfiguration"
